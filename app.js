@@ -45,7 +45,7 @@ app.get('/',function(req,res){
 });
 
 app.post('/',function(req,res){
-    var usn=req.body.usn;
+    var usn=req.body.usn.toUppercase();
     if(usn)
     var stdData=stdModel.findOne({'usn':usn},{'_id':0,'v':0}).then(function(data){
         if(data){
