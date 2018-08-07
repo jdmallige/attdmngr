@@ -1,0 +1,14 @@
+{
+  "short_name": "Attd Mngr",
+  "name": "Attendance Manager",
+  "icons":[{
+      "src": "/assets/1.png",
+      "type": "image/png"
+      }]
+  ,
+  "start_url": "www.attdmngr.herokuapp.com",
+  "background_color": "#3367D6",
+  "display": "browser",
+  "scope": "/maps/",
+  "theme_color": "#3367D6"
+}

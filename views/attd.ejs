@@ -1,0 +1,200 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Attendance Managment</title>
+    <link rel="stylesheet" href="assets/materialize.min.css">
+    <link rel="manifest" href="assets/manifest.json">
+    <style>
+    .sub{
+        font-size:30px;
+    }
+    .container{
+        background-color:#9e9e9e 
+    }
+    .card{
+        border-radius:25px; 
+    }
+    .title{
+        border-radius:10px; background-color:#9e9e9e;
+    }
+    h4{
+        background-color:#9e9e9e
+    }
+    body{
+        background-color: #333;
+    }
+    </style>
+</head>
+<body >
+    <div class="container " >
+        <nav class="nav-wrapper indigo">
+            <a href="#" class="brand-logo center"> Attd Mng  </a>
+        </nav>
+        <br>
+        <div class="container">
+        <nav class="nav-wrapper" id="timec">
+                <h3 class="brand-logo center"> Time Table</h3>
+        </nav>
+       
+        <table class="responsive-table highlight orange lighten-2 " id="time" >
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <% var i=0;d.forEach(function(x,i){ %><tr class="">
+                            <th><%=x.day%></th>
+                            <th><%=x['1']%></th>
+                            <th><%=x['2']%></th>
+                            <th><%=x['3']%></th>
+                            <th><%=x['4']%></th>
+                            <th><%=x['5']%></th>
+                            <th><%=x['6']%></th>
+                        
+                    </tr>
+                          
+                <% })%>
+            
+                
+            </tbody>
+
+
+
+        </table>
+    </div>
+     </div><% 
+    
+     
+     data=data.toJSON();
+     
+     var sub=Object.keys(data);
+     var sub1=[];
+     var i=2;%>
+     <div class="container">
+        <div class="row center" >
+            <div class="col l4 center ">
+               
+                    <div class="" >
+                        <h4>Name : <%=data[sub[0]]%></h4>
+                        <h4>USN : <%=data[sub[1]]%></h4>
+                    </div>
+                </div>
+            
+        </div>
+        
+        
+        
+        
+        
+        <div class="row">
+           <%
+           for(;i<8;i++){sub1[i]=sub[i].toUpperCase();%>
+
+
+            
+               
+           
+           
+            <div class="col s12 l6" id="c">
+                <div class="card  accent-3 ">
+                    <div class="card-content">
+                        <span class="card-tittle sub"><%=sub1[i]%></span>
+                        <p> <strong>Attended :</strong><%=data[sub[i]].split( '' ).reverse( ).join( '' ).charAt(1)%> </p>
+                        <p> <strong>Total :</strong><%=tot[sub[i]]%> </p>
+                        <h1 style="font-size:60px;"><%=data[sub[i]]%></h1>
+                    </div>
+                </div>
+            </div> 
+            <%} %>
+            <div class="container center" id="mob"><button class="btn-floating indigo btn-large center" id="extra">More</button></div>
+            <div id="more" style="display: none">
+         <%for(i=8;i<13;i++){sub1[i]=sub[i].toUpperCase();%>
+            
+           
+            <div class="col s12 l6">
+                <div class="card  accent-3 ">
+                    <div class="card-content">
+                        <span class="card-tittle sub"><%=sub1[i]%></span>
+                        <p> <strong>Attended :</strong><%=data[sub[i]].split( '' ).reverse( ).join( '' ).charAt(1)%> </p>
+                        <p> <strong>Total :</strong><%=tot[sub[i]]%> </p>
+                        <h1 style="font-size:50px;"><%=data[sub[i]]%></h1>
+                       
+                    </div>
+                </div>
+            </div> 
+            <%} %></div>
+            <br>
+        <div class="container center" ><button style="margin-bottom: 15px;"onclick="window.location.href='/bunk'" class=" btn-large waves-effect waves-light">
+                Make a bunk ENTRY
+            </button>
+            <p class="white-text ">-By jagdish</p>
+
+        </div>
+
+     </div>
+
+
+
+</body>
+<script src="assets/materialize.min.js">
+</script>
+<script>
+    const table=document.getElementById('time');
+const time=document.getElementById('timec');
+time.addEventListener('click',function(){
+    if(table.style.display=="none")
+    {
+        table.style.display="";
+        
+    }
+    else{
+        table.style.display="none";
+    }
+});
+
+const more=document.getElementById('more');
+const mob=document.getElementById('mob');
+mob.addEventListener('click',function(){
+    
+    if(more.style.display=="none")
+    more.style.display="";
+    else    
+    more.style.display="none";
+});
+var h=document.getElementsByTagName('h1'); 
+for(var i=0;i<h.length;i++)
+{
+    var str=h[i].innerHTML;
+    console.log(str.slice(0,2));
+    if(str.slice(0,2)>78||str.slice(0,2)==10)
+    {
+        var clas=h[i].parentElement.parentElement;
+        clas.classList.add('light-green');
+    }
+    else
+    { if(str.slice(0,2)>60){
+        var clas=h[i].parentElement.parentElement;
+        clas.classList.add('yellow');
+        
+    } 
+    else{
+        var clas=h[i].parentElement.parentElement;
+        clas.classList.add('red');
+
+    }}
+}
+
+
+
+</script>
+</html>
