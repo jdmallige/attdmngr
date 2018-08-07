@@ -26,7 +26,7 @@ var connect=mongoose.connect('mongodb://jagdish123:mallige123@ds111192.mlab.com:
 var stdModel = mongoose.model('student',schema);
 
 //port starting
-app.listen(3000||process.env.PORT);
+var server=app.listen(process.env.PORT||3000);
 
 
 
