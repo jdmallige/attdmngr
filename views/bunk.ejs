@@ -42,7 +42,7 @@
                 <button class="btn-large waves-effect waves-light center" onclick="hidepast();">Add past bunk</button>
                 <br>
                 
-                <h4 id="m" style="display: none"> Feature Yet to be added</h1>
+                <h4 id="m" style="display: none"> Feature Yet to be added<p><small style="font-size: 10px;">Bunked records can be updated on a daily basis to reflect on the daily attendance.</small></p></h1>
                 <form class="white-text"action="/update" id="past" method="post" style="display: none">
                     <p>
                         <label>
@@ -140,8 +140,10 @@
                         <label for="number">No of periods</label>
                     </div>
                     <div class="input-field">
-                        <input type="date" name="day" required placeholder="Enter no of classes[1-4]" >
+                            <p style="float: left">Date</p>
+                        <input type="date" name="day" required placeholder="" >
                         <label for="day">Date</label>
+                        
                     </div>
                     
                     <div class="input-field">

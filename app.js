@@ -48,7 +48,8 @@ app.post('/',function(req,res){
     var usn=req.body.usn.toUpperCase();
     console.log(usn);
     if(usn)
-    var stdData=stdModel.findOne({'usn':usn},{'_id':0,'v':0}).then(function(data){
+    var stdData=stdModel.findOne({'usn':usn},{'_id':0,'v':0}).then(function(data,err){
+      console.log(err);  
         if(data){
             res.cookie('user',usn,{maxAge:60*1000*4});
             var log=new logModel({usn:usn,date:Date.now()});
@@ -112,7 +113,7 @@ for(i=0;i<tot.length;i++)
         {console.log("saved");}
     });
 }
-
+res.end("SAVED");
 });
 
 app.get('/bunk',function(req,res){
