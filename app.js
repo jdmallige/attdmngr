@@ -4,6 +4,8 @@ const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
 const cookieParser=require('cookie-parser');
 const url = require('url')
+
+
 //Database schema and model
 var subSchema=mongoose.Schema({name:String,total:String});
 var logSchema=mongoose.Schema({usn:String,time:{type:Date,default:Date.now()}})
@@ -25,6 +27,7 @@ var schema=mongoose.Schema({ name: String,
 var connect=mongoose.connect('mongodb://jagdish123:mallige123@ds111192.mlab.com:11192/attddb');
 var stdModel = mongoose.model('student',schema);
 
+
 //port starting
 var server=app.listen(process.env.PORT||3000);
 
@@ -38,6 +41,8 @@ app.use(cookieParser());
 
 
 //basic routes
+
+//home route 
 app.get('/',function(req,res){
     //console.log(req.cookies.user);
     
@@ -60,7 +65,8 @@ app.post('/',function(req,res){
     }
 });
 });
-//saving the records in db
+
+// script for saving the records in db runs once a week 
 
 app.get('/save',function(req,res){
 var i;
@@ -93,8 +99,8 @@ var tot=[
     {name:'me',total:ise[0].ME},
     {name:'cn',total:ise[0].CN},
     {name:'dbms',total:ise[0].DBMS},
-    {name:'oomd',total:ise[0].OOMD},
-    {name:'ai',total:ise[0].AI},
+    {name:'oomd',total:ise[0].OOAD},
+    {name:'ai',total:ise[0].AL},
     {name:'atc',total:ise[0].ATC},
     {name:'cnt',total:ise[0].CNTUT},
     {name:'dbmst',total:ise[0].DBMSTUT},
@@ -116,12 +122,15 @@ for(i=0;i<tot.length;i++)
 res.end("SAVED");
 });
 
+// bunk page route just displays a form to predict the % of a particular subject
+
 app.get('/bunk',function(req,res){
     
     res.render('bunk',{});
 });
 
-//predictor
+// 
+// 
 app.post('/predict',function(req,res){
 var usn=req.cookies.user;
 var sub= req.body.sub,num=req.body.number,day=new Date(req.body.day).getUTCDay()-1;
@@ -138,6 +147,7 @@ time=[
     var stdData=stdModel.findOne({'usn':usn},{'_id':0,'v':0}).then(function(data){
        
     var old=data[sub];
+   
     var totalw=0;
     day=day>4?4:day;
     for(var i=0;i<=day;i++)
@@ -154,9 +164,12 @@ time=[
     var attended=old.charAt(1);
 
     var total;
-        subModel.findOne({name:sub},{_id:0,_v:0}).then(function(data){
-        total=data.total;
+        subModel.findOne({name:sub},{_id:0}).then(function(data){
+            console.log(data);
+            total=data.total;
+        console.log(total);
         total=parseInt(total);
+        console.log(total);
         var a=parseInt(attended),n=parseInt(num),t=parseInt(totalw);
         // attended=parseInt(attended);
          var percent=(a+t-n)/(total+t)*100;
